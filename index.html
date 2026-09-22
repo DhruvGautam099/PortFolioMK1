@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhruv Gautam — Backend &amp; Full-Stack Engineer</title>
+  <meta name="description" content="Dhruv Gautam — Backend and full-stack engineering student specializing in Java, Spring Boot, MERN, and GenAI integration.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0D10'/%3E%3Cg fill='%23E10600'%3E%3Crect x='4' y='4' width='4' height='4'/%3E%3Crect x='12' y='4' width='4' height='4'/%3E%3Crect x='20' y='4' width='4' height='4'/%3E%3Crect x='8' y='8' width='4' height='4'/%3E%3Crect x='16' y='8' width='4' height='4'/%3E%3Crect x='24' y='8' width='4' height='4'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================================
+       DESIGN TOKENS & RESET (UNTOUCHED)
+       ============================================================ */
+    :root {
+      --bg-primary: #0b0d10;
+      --bg-secondary: #13171d;
+      --bg-card: #181d24;
+      --bg-card-hover: #1f252f;
+      
+      --text-main: #f1f3f5;
+      --text-muted: #8b949e;
+      --text-bright: #ffffff;
+      
+      --f1-red: #e10600;
+      --f1-red-glow: rgba(225, 6, 0, 0.35);
+      --border-subtle: #272f38;
+      --border-active: #e10600;
+      
+      --font-display: 'Titillium Web', sans-serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --max-w: 1100px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-body);
+    }
+
+    body {
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================================
+       HEADER & NAVIGATION
+       ============================================================ */
+    .nav-toggle {
+      display: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(11, 13, 16, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .header-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .brand-dot {
+      color: var(--f1-red);
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .site-nav a {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .site-nav a:hover {
+      color: var(--text-bright);
+    }
+
+    .nav-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--f1-red);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 22px;
+      height: 2px;
+      background: var(--text-main);
+      transition: var(--transition);
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 1.5rem 4rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .track-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: rgba(225, 6, 0, 0.08);
+      stroke-width: 4;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .lights {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .lights span {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #2a1111;
+      border: 1px solid rgba(225, 6, 0, 0.4);
+    }
+
+    .lights span:first-child {
+      background: var(--f1-red);
+      box-shadow: 0 0 10px var(--f1-red);
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--f1-red);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 6.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -1px;
+      color: var(--text-bright);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-role {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 2.2rem;
+    }
+
+    .meta-sep {
+      color: var(--f1-red);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.75px;
+      padding: 0.75rem 1.6rem;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--f1-red);
+      color: #fff;
+      border: 1px solid var(--f1-red);
+      box-shadow: 0 4px 14px var(--f1-red-glow);
+    }
+
+    .btn-primary:hover {
+      background: #b50500;
+      border-color: #b50500;
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-main);
+      padding: 0.45rem 0.9rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 2px;
+      width: fit-content;
+      margin-top: 1rem;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--f1-red);
+      color: var(--f1-red);
+    }
+
+    /* ============================================================
+       SECTIONS GENERAL
+       ============================================================ */
+    .session {
+      padding: 5rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .alt-bg {
+      background-color: var(--bg-secondary);
+    }
+
+    .session-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .session h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .session-tag {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--f1-red);
+      background: rgba(225, 6, 0, 0.1);
+      border: 1px solid rgba(225, 6, 0, 0.3);
+      padding: 0.1rem 0.45rem;
+      border-radius: 2px;
+    }
+
+    .section-intro {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    /* ============================================================
+       FP1: ABOUT & DRIVER CARD
+       ============================================================ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-copy p {
+      color: #c0c6ce;
+      font-size: 1.05rem;
+      margin-top: 1.25rem;
+    }
+
+    .driver-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-top: 3px solid var(--f1-red);
+      padding: 1.75rem;
+      border-radius: 2px;
+    }
+
+    .driver-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    .driver-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.95rem;
+    }
+
+    .driver-row:last-child {
+      border-bottom: none;
+    }
+
+    .driver-row dt {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .driver-row dd {
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    /* ============================================================
+       QUALIFYING: SKILLS
+       ============================================================ */
+    .sectors {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .sector {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      border-radius: 2px;
+    }
+
+    .sector-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .sector-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--f1-red);
+    }
+
+    .skill-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.95rem;
+    }
+
+    .skill-list li:last-child {
+      border-bottom: none;
+    }
+
+    .tag-pb {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #ff9800;
+      background: rgba(255, 152, 0, 0.12);
+      border: 1px solid rgba(255, 152, 0, 0.3);
+      padding: 0.1rem 0.35rem;
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+       RACE: PROJECTS
+       ============================================================ */
+    .podium {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .pcard {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      border-radius: 2px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .pcard:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .pcard-p1 {
+      border-top: 3px solid #ffcc00;
+    }
+
+    .pcard-p2 {
+      border-top: 3px solid #b5b5b5;
+    }
+
+    .pcard-p3 {
+      border-top: 3px solid #cd7f32;
+    }
+
+    .pcard-head {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .pos {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
+    }
+
+    .pos-p1 { background: #ffcc00; color: #000; }
+    .pos-p2 { background: #b5b5b5; color: #000; }
+    .pos-p3 { background: #cd7f32; color: #fff; }
+
+    .pcard h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--text-bright);
+    }
+
+    .pcard-result {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      line-height: 1.55;
+      flex-grow: 1;
+      margin-bottom: 1.2rem;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .stack li {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #9aa4af;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    .garage {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      border-radius: 2px;
+    }
+
+    .garage-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .garage-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .garage-links a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 2px;
+    }
+
+    .garage-links a span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .garage-links a:hover {
+      border-color: var(--f1-red);
+      color: var(--f1-red);
+    }
+
+    /* ============================================================
+       PIT WALL: STATS
+       ============================================================ */
+    .telemetry {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .telem-block {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 2rem;
+      border-radius: 2px;
+    }
+
+    .telem-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--f1-red);
+      letter-spacing: 1px;
+    }
+
+    .telem-value {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-bright);
+      line-height: 1.1;
+      margin: 0.3rem 0;
+    }
+
+    .telem-sub {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .telem-link {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-main);
+      border-bottom: 1px dashed var(--text-muted);
+      padding-bottom: 2px;
+    }
+
+    .telem-link:hover {
+      color: var(--f1-red);
+      border-color: var(--f1-red);
+    }
+
+    /* ============================================================
+       RADIO: CONTACT
+       ============================================================ */
+    .radio {
+      background: var(--bg-card);
+      border-left: 3px solid var(--f1-red);
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    .radio-line {
+      margin-bottom: 0.5rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .radio-line:last-child {
+      margin-bottom: 0;
+    }
+
+    .radio-tag {
+      color: var(--f1-red);
+      font-weight: 700;
+    }
+
+    .radio-driver .radio-tag {
+      color: #3b82f6;
+    }
+
+    .contact-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-list li {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .contact-list a {
+      font-weight: 600;
+      color: var(--text-bright);
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
+      word-break: break-all;
+    }
+
+    .contact-list a:hover {
+      color: var(--f1-red);
+    }
+
+    .resume-btn {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    /* ============================================================
+       FOOTER (WITH CHEQUERED RACING PATTERN & COPYRIGHT)
+       ============================================================ */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+      position: relative;
+    }
+
+    .chequer {
+      width: 100%;
+      height: 6px;
+      background-image: linear-gradient(45deg, #232a35 25%, transparent 25%), 
+                        linear-gradient(-45deg, #232a35 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #232a35 75%), 
+                        linear-gradient(-45deg, transparent 75%, #232a35 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+      opacity: 0.6;
+    }
+
+    .footer-content {
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-bright);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       RESPONSIVE DESIGN (BREAKPOINTS)
+       ============================================================ */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .sectors,
+      .podium {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hamburger {
+        display: flex;
+      }
+      
+      .site-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        border-bottom: 1px solid var(--border-subtle);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+        display: none;
+      }
+      
+      .nav-toggle:checked ~ .site-header .site-nav {
+        display: flex;
+      }
+
+      .telemetry,
+      .contact-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#hero" class="brand">DG<span class="brand-dot">.</span></a>
+
+    <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="site-nav">
+      <a href="#about"><span class="nav-tag">FP1</span>About</a>
+      <a href="#skills"><span class="nav-tag">Q</span>Skills</a>
+      <a href="#projects"><span class="nav-tag">R</span>Race</a>
+      <a href="#stats"><span class="nav-tag">PW</span>Pit&nbsp;Wall</a>
+      <a href="#contact"><span class="nav-tag">TR</span>Radio</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section id="hero" class="hero">
+    <svg class="track-line" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M -50 550 C 150 550, 180 380, 340 380 S 520 250, 640 250 S 760 120, 900 120 S 1050 260, 1000 400 S 780 520, 850 600 S 1150 650, 1260 500" />
+    </svg>
+
+    <div class="hero-inner">
+      <div class="lights" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <p class="eyebrow">Season 2026 &nbsp;//&nbsp; Tech Telemetry</p>
+      <h1 class="hero-name">DHRUV<br>GAUTAM</h1>
+      <p class="hero-role">Backend &amp; Full-Stack Developer — Java · Spring&nbsp;Boot · MERN · AI APIs</p>
+
+      <div class="hero-meta">
+        <span>Bhopal, IN</span>
+        <span class="meta-sep">·</span>
+        <span>B.Tech AI &amp; ML</span>
+        <span class="meta-sep">·</span>
+        <span>Target: SDE / Backend Engineering</span>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">Telemetry &amp; Code</a>
+        <a href="#contact" class="btn btn-ghost">Open Radio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT — FP1 ============ -->
+  <section id="about" class="session">
+    <div class="session-inner about-grid">
+      <div class="about-copy">
+        <h2><span class="session-tag">FP1</span>Free Practice — Ground Work</h2>
+        <p>
+          I am a software engineering student building backend and full-stack web applications. 
+          I primarily work with Java and Spring Boot, focusing on writing clean, maintainable code 
+          and building reliable APIs.
+        </p>
+        <p>
+          Outside of coursework, I regularly practice Data Structures and Algorithms in Java on LeetCode. 
+          I also enjoy exploring modern web frameworks and containerizing my projects with Docker to 
+          understand how applications are deployed in the real world.
+        </p>
+      </div>
+
+      <aside class="driver-card">
+        <p class="driver-card-title">Driver Card</p>
+        <dl>
+          <div class="driver-row"><dt>Base</dt><dd>Bhopal, MP, India</dd></div>
+          <div class="driver-row"><dt>Institute</dt><dd>BIST (RGPV)</dd></div>
+          <div class="driver-row"><dt>Focus</dt><dd>Spring Boot · MERN</dd></div>
+          <div class="driver-row"><dt>Status</dt><dd>Available for 2026 roles</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS — QUALIFYING ============ -->
+  <section id="skills" class="session alt-bg">
+    <div class="session-inner">
+      <h2><span class="session-tag">Q</span>Qualifying — Sector Times</h2>
+      <p class="section-intro">Core technical proficiencies mapped by execution tier.</p>
+
+      <div class="sectors">
+        <div class="sector">
+          <p class="sector-title"><span class="sector-num">S1</span>Languages &amp; Core</p>
+          <ul class="skill-list">
+            <li><span>Java (OOP, Collections)</span><span class="tag tag-pb">PB</span></li>
+            <li><span>MongoDB</span></li>
+            <li><span>Python</span></li>
+            <li><span>JavaScript / HTML / CSS</span></li>
+          </ul>
+        </div>
+
+        <div class="sector">
+          <p class="sector-title"><span class="sector-num">S2</span>Frameworks &amp; Stacks</p>
+          <ul class="skill-list">
+            <li><span>Spring Boot</span><span class="tag tag-pb">PB</span></li>
+            <li><span>Node.js / Express</span></li>
+            <li><span>React</span></li>
+            <li><span>Socket.io</span></li>
+          </ul>
+        </div>
+
+        <div class="sector">
+          <p class="sector-title"><span class="sector-num">S3</span>Infrastructure &amp; Systems</p>
+          <ul class="skill-list">
+            <li><span>Data Structures &amp; Algorithms</span><span class="tag tag-pb">PB</span></li>
+            <li><span>Git &amp; GitHub</span></li>
+            <li><span>LLM APIs (Gemini)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS — RACE ============ -->
+  <section id="projects" class="session">
+    <div class="session-inner">
+      <h2><span class="session-tag">R</span>Race Day — Core Builds</h2>
+      <p class="section-intro">Recent projects focused on backend fundamentals and full-stack development.</p>
+
+      <div class="podium">
+        <article class="pcard pcard-p2">
+          <div class="pcard-head">
+            <span class="pos pos-p2">P2</span>
+            <h3>Double-Entry Ledger API</h3>
+          </div>
+          <p class="pcard-result">
+            A transaction ledger backend designed to maintain balanced accounts. 
+            Implemented JWT authentication, atomic database sessions to handle simultaneous requests, 
+            and idempotency keys to prevent duplicate transactions.
+          </p>
+          <ul class="stack">
+            <li>Node.js</li><li>Express</li><li>MongoDB</li><li>JWT</li>
+          </ul>
+          <a class="btn btn-outline" href="https://github.com/DhruvGautam099/TransactionSystem" target="_blank" rel="noopener">Inspect Codebase</a>
+        </article>
+
+        <article class="pcard pcard-p1">
+          <div class="pcard-head">
+            <span class="pos pos-p1">P1</span>
+            <h3>VoltPod (ChargeMate)</h3>
+          </div>
+          <p class="pcard-result">
+            A full-stack EV charging locator and slot-booking prototype built during a hackathon. 
+            Used Socket.io for live station availability updates and integrated a Python service 
+            for basic charger recommendations.
+          </p>
+          <ul class="stack">
+            <li>React</li><li>Node.js</li><li>MongoDB</li><li>Socket.io</li><li>Python</li>
+          </ul>
+          <a class="btn btn-outline" href="https://github.com/DhruvGautam099/VOLTPOD-DEMO" target="_blank" rel="noopener">Inspect Codebase</a>
+        </article>
+
+        <article class="pcard pcard-p3">
+          <div class="pcard-head">
+            <span class="pos pos-p3">P3</span>
+            <h3>IntelliCrud Service</h3>
+          </div>
+          <p class="pcard-result">
+            A Spring Boot CRUD service that integrates AI-assisted features alongside standard book records. 
+            Containerized the backend and database using Docker Compose for easier setup and deployment.
+          </p>
+          <ul class="stack">
+            <li>Java</li><li>Spring Boot</li><li>REST API</li><li>Docker</li><li>LLM APIs</li>
+          </ul>
+          <a class="btn btn-outline" href="https://github.com/DhruvGautam099/Intellicrud" target="_blank" rel="noopener">Inspect Codebase</a>
+        </article>
+      </div>
+
+      <div class="garage">
+        <p class="garage-label">Auxiliary Telemetry &amp; Prototypes</p>
+        <div class="garage-links">
+          <a href="https://github.com/DhruvGautam099/leetcode" target="_blank" rel="noopener">Algorithm Solutions <span>Java</span></a>
+          <a href="https://github.com/DhruvGautam099/FIntech-projects" target="_blank" rel="noopener">Quantitative Scripts <span>Python</span></a>
+          <a href="https://github.com/DhruvGautam099/tictactoe109" target="_blank" rel="noopener">Tic-Tac-Toe <span>Vanilla JS</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATS — PIT WALL ============ -->
+  <section id="stats" class="session alt-bg">
+    <div class="session-inner">
+      <h2><span class="session-tag">PW</span>Pit Wall — Engineering Metrics</h2>
+      <p class="section-intro">Activity across source control and problem-solving platforms.</p>
+
+      <div class="telemetry">
+        <div class="telem-block">
+          <p class="telem-label">Version Control</p>
+          <p class="telem-value">10+</p>
+          <p class="telem-sub">public repositories</p>
+          <a class="telem-link" href="https://github.com/DhruvGautam099" target="_blank" rel="noopener">Browse GitHub →</a>
+        </div>
+
+        <div class="telem-block">
+          <p class="telem-label">Problem Solving</p>
+          <p class="telem-value">Active</p>
+          <p class="telem-sub">Java &amp; DSA</p>
+          <a class="telem-link" href="https://leetcode.com/u/Oldl1AMZeH/" target="_blank" rel="noopener">View LeetCode →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT — TEAM RADIO ============ -->
+  <section id="contact" class="session">
+    <div class="session-inner">
+      <h2><span class="session-tag">TR</span>Team Radio</h2>
+
+      <div class="radio">
+        <p class="radio-line"><span class="radio-tag">PIT WALL</span>Driver status: Available for SDE / Backend roles. State comms frequency.</p>
+        <p class="radio-line radio-driver"><span class="radio-tag">DRIVER</span>Copy that. Direct links live on this channel.</p>
+      </div>
+
+      <ul class="contact-list">
+        <li>
+          <span class="contact-label">Email</span>
+          <a href="mailto:dhruvgautam98765@gmail.com">dhruvgautam98765@gmail.com</a>
+        </li>
+        <li>
+          <span class="contact-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/dhruv-gautam149/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BxqBy2NanRKy2E7KG%2B7P1ng%3D%3D" target="_blank" rel="noopener">LinkedIn Go-to </a>
+        </li>
+        <li>
+          <span class="contact-label">LeetCode</span>
+          <a href="https://leetcode.com/u/Oldl1AMZeH/" target="_blank" rel="noopener">LeetCode Go-to </a>
+        </li>
+        <li>
+          <span class="contact-label">GitHub</span>
+          <a href="https://github.com/DhruvGautam099" target="_blank" rel="noopener">Github Go-to </a>
+        </li>
+      </ul>
+
+      <!-- This is the button updated with the download attribute -->
+      <a class="btn btn-primary resume-btn" href="resume.pdf" download="Dhruv_Gautam_Resume.pdf">Download Technical Resume</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ COPYRIGHT FOOTER ============ -->
+<footer class="site-footer">
+  <div class="chequer" aria-hidden="true"></div>
+  <div class="footer-content">
+    <p class="footer-copy">
+      &copy; 2026 Dhruv Gautam. All rights reserved.
+    </p>
+    <p class="footer-sub">
+      Engineered with HTML &amp; CSS. No pit stops skipped.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
